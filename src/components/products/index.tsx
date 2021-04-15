@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { useActions } from '../../hooks/useActions'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
@@ -15,6 +14,7 @@ const Products: React.FC = () => {
 
   useEffect(() => {
     fetchProducts()
+    // eslint-disable-next-line
   }, [])
 
   const showProducts = products.map(product => {

@@ -4,9 +4,9 @@ export interface SingleProductTypes {
   featuredImg: string
   images: string[]
   brand: string
-  price: string
-  newPrice: string
-  countInStock: 0
+  price: number
+  newPrice: number
+  countInStock: number
   options: {
     color: string
     size: string
@@ -14,8 +14,6 @@ export interface SingleProductTypes {
   }[]
   createdAt: Date
   categories: string[]
-  loading: boolean
-  error: null | string
 }
 
 export interface SingleProductState {
@@ -28,7 +26,9 @@ export enum SingleProductActionTypes {
   FETCH_PRODUCT = 'FETCH_PRODUCT',
   FETCH_PRODUCT_SUCCESS = 'FETCH_PRODUCT_SUCCESS',
   FETCH_PRODUCT_ERROR = 'FETCH_PRODUCT_ERROR',
+  CREATE_NEW_PRODUCT = 'CREATE_NEW_PRODUCT',
   CREATE_PRODUCT = 'CREATE_PRODUCT',
+  POST_NEW_PRODUCT = 'POST_NEW_PRODUCT',
   CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS',
   CREATE_PRODUCT_ERROR = 'CREATE_PRODUCT_ERROR',
 }
@@ -44,9 +44,15 @@ interface FetchedProductErrorAction {
   type: SingleProductActionTypes.FETCH_PRODUCT_ERROR
   payload: string
 }
+interface CreateNewProductAction {
+  type: SingleProductActionTypes.CREATE_NEW_PRODUCT
+}
 interface CreateProductAction {
   type: SingleProductActionTypes.CREATE_PRODUCT
-  payload: any
+  payload: SingleProductTypes
+}
+interface PostNewProductAction {
+  type: SingleProductActionTypes.POST_NEW_PRODUCT
 }
 interface CreateProductSuccessAction {
   type: SingleProductActionTypes.CREATE_PRODUCT_SUCCESS
@@ -57,4 +63,4 @@ interface CreateProductErrorAction {
   payload: string
 }
 
-export type SingleProductAction = FetchedProductAction | FetchedProductSuccessAction | FetchedProductErrorAction | CreateProductAction | CreateProductSuccessAction | CreateProductErrorAction
+export type SingleProductAction = FetchedProductAction | FetchedProductSuccessAction | FetchedProductErrorAction | CreateNewProductAction | CreateProductAction | PostNewProductAction | CreateProductSuccessAction | CreateProductErrorAction

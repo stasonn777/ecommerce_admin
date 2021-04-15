@@ -1,7 +1,6 @@
-import React, { ChangeEvent } from 'react'
+import { ChangeEvent } from 'react'
 import { useActions } from '../../hooks/useActions'
-import { GridBox, Add, Input, Section, Select, TextArea } from '../../styles'
-import { SingleProductTypes } from '../../types/singleProduct'
+import { GridBox, Add, Input, Section, TextArea, Select } from '../../styles'
 import { FormWrapper, H3 } from './styles'
 
 interface Props {
@@ -14,7 +13,7 @@ interface Props {
   }[]
 }
 
-const Main = ({ title, description, options }: Props) => {
+const Main = ({ title, description }: Props) => {
   const { createProduct } = useActions()
 
   const setData = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>) => {
