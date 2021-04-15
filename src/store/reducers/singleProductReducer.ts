@@ -17,8 +17,6 @@ const initialState: SingleProductState = {
     options: [{ color: '', size: '', others: [] }],
     categories: [],
     createdAt: new Date(),
-    loading: false,
-    error: null,
   },
   loading: false,
   error: null,
@@ -32,10 +30,14 @@ export const singleProductReducer = (state = initialState, action: SingleProduct
       return { ...state, loading: false, singleProduct: action.payload }
     case SingleProductActionTypes.FETCH_PRODUCT_ERROR:
       return { ...state, loading: false, error: action.payload }
+    case SingleProductActionTypes.CREATE_NEW_PRODUCT:
+      return { ...state, singleProduct: initialState.singleProduct }
     case SingleProductActionTypes.CREATE_PRODUCT:
       return { ...state, singleProduct: {...state.singleProduct, ...action.payload} }
+    case SingleProductActionTypes.POST_NEW_PRODUCT:
+      return { ...state, loading: true }
     case SingleProductActionTypes.CREATE_PRODUCT_SUCCESS:
-      return { ...state, loading: true, singleProduct: action.payload }
+      return { ...state, loading: false, singleProduct: action.payload }
     case SingleProductActionTypes.CREATE_PRODUCT_ERROR:
       return { ...state, loading: false, error: action.payload }
     default:

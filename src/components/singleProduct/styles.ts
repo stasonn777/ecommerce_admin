@@ -9,3 +9,6 @@ export const H3 = styled.h3`
   color: #111;
   font-weight: 600;
 `
+export const FeaturedImg = styled.img`
+  max-width: 100%;
+`

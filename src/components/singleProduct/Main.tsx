@@ -1,7 +1,6 @@
-import React, { ChangeEvent } from 'react'
+import { ChangeEvent } from 'react'
 import { useActions } from '../../hooks/useActions'
-import { GridBox, Add, Input, Section, Select, TextArea } from '../../styles'
-import { SingleProductTypes } from '../../types/singleProduct'
+import { GridBox, Add, Input, Section, TextArea } from '../../styles'
 import { FormWrapper, H3 } from './styles'
 
 interface Props {
@@ -14,7 +13,7 @@ interface Props {
   }[]
 }
 
-const Main = ({ title, description, options }: Props) => {
+const Main = ({ title, description }: Props) => {
   const { createProduct } = useActions()
 
   const setData = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>) => {
@@ -29,13 +28,13 @@ const Main = ({ title, description, options }: Props) => {
         <TextArea onChange={setData} rows={10} name="description" placeholder="Description" value={description} />
         <H3>Options</H3>
         <GridBox grid="auto auto auto" margin="20px">
-          <Select onChange={setData} name="color">
+          {/* <Select onChange={setData} name="color">
             <option value="balack">Black</option>
             <option value="white">White</option>
             <option value="green">Green</option>
             <option value="red">Red</option>
             <option value="blue">Blue</option>
-          </Select>
+          </Select> */}
           <Input onChange={setData} type="text" name="size" placeholder="Size" />
           <Add style={{ marginBottom: "20px" }}>Add Option</Add>
         </GridBox>

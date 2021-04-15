@@ -1,18 +1,19 @@
 import React, { ChangeEvent } from 'react'
 import { useActions } from '../../hooks/useActions'
 import { GridBox, Add, Edit, Section, Input } from '../../styles'
-import { FormWrapper, H3 } from './styles'
+import { FeaturedImg, FormWrapper, H3 } from './styles'
 
 interface Props {
   featuredImg: string
   brand: string
   price: string
   newPrice: string
-  countInStock: 0
+  countInStock: number
   categories: string[]
+  postProduct: any
 }
 
-const Aside = ({countInStock, categories, brand, price, newPrice, featuredImg} : Props) => {
+const Aside = ({countInStock, brand, price, newPrice, featuredImg, postProduct} : Props) => {
 
   const { createProduct } = useActions()
 
@@ -25,9 +26,9 @@ const Aside = ({countInStock, categories, brand, price, newPrice, featuredImg} :
     <Section width='25%'>
       <FormWrapper>
         <GridBox grid="auto auto" margin="20px">
-          <Add>Save</Add>
+          <Add onClick={postProduct}>Save</Add>
           <Edit>Publish</Edit>
-          <a href="">Remove</a>
+          {/* <a href="">Remove</a> */}
         </GridBox>
         <label htmlFor="brand">Brand</label>
         <Input onChange={setData} type="text" name="brand" placeholder="Brand" value={brand} />
@@ -38,9 +39,9 @@ const Aside = ({countInStock, categories, brand, price, newPrice, featuredImg} :
             <Input onChange={setData} type="text" name="newPrice" placeholder="New Price" value={newPrice}/></div>
         </GridBox>
         <label htmlFor="stock">In stock</label>
-        <Input onChange={setData} type="number" name="stock" placeholder="In stock" value={countInStock} />
+        <Input onChange={setData} type="number" name="countInStock" placeholder="In stock" value={countInStock} />
         <H3>Featured image</H3>
-        <img src={featuredImg} alt="" />
+        <FeaturedImg src={featuredImg} alt="" />
         <Add>Set image</Add>
       </FormWrapper>
     </Section>

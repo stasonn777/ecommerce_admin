@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useActions } from '../../hooks/useActions'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { RouteComponentProps } from "react-router-dom";
-import { useSelector } from 'react-redux';
 import Main from './Main';
 import Aside from './Aside';
 import { Wrapper } from '../../styles';
@@ -19,16 +17,25 @@ interface MatchParams {
 const SingleProduct = ({ match }: MatchParams) => {
   const product = useTypedSelector(state => state.singleProduct.singleProduct)
 
-  const { fetchSingleProduct } = useActions()
+  const { fetchSingleProduct, createNewProduct, postNewProduct } = useActions()
 
   useEffect(() => {
-    fetchSingleProduct(match.params.id)
+    if (!match.params.id) {
+      createNewProduct()
+    } else {
+      fetchSingleProduct(match.params.id)
+    }
+    // eslint-disable-next-line
   }, [])
+
+  const postProduct = () => {
+    postNewProduct(product)
+  }
 
   return (
     <Wrapper>
       <Main title={product.title} description={product.description} options={product.options} />
-      <Aside brand={product.brand} price={product.price} newPrice={product.newPrice} countInStock={product.countInStock} featuredImg={product.featuredImg} categories={product.categories} />
+      <Aside brand={product.brand} price={product.price} newPrice={product.newPrice} countInStock={product.countInStock} featuredImg={product.featuredImg} categories={product.categories} postProduct={postProduct} />
     </Wrapper>
   )
 }
