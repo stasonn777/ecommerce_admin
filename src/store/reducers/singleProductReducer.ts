@@ -33,7 +33,6 @@ export const singleProductReducer = (state = initialState, action: SingleProduct
     case SingleProductActionTypes.CREATE_NEW_PRODUCT:
       return { ...state, singleProduct: initialState.singleProduct }
     case SingleProductActionTypes.CREATE_PRODUCT:
-      debugger
       return { ...state, singleProduct: {...state.singleProduct, ...action.payload } }
     case SingleProductActionTypes.POST_NEW_PRODUCT:
       return { ...state, loading: true }

@@ -4,8 +4,13 @@ export interface SingleProductTypes {
   featuredImg: string
   images: string[]
   brand: string
+<<<<<<< HEAD
   price: number
   newPrice: number
+=======
+  price: string
+  newPrice: string
+>>>>>>> cf314fb20e0c308034597f54b844f76c8a81c32d
   countInStock: number
   options: {
     color: string
