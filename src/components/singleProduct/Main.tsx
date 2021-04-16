@@ -10,15 +10,15 @@ interface Props {
     color: string
     size: string
     others: { key: string; value: string }[]
-  }[]
+  }
 }
 
-const Main = ({ title, description }: Props) => {
-  const { createProduct } = useActions()
+const Main = ({ title, description, options }: Props) => {
+  const { setProductFields } = useActions()
 
   const setData = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>) => {
     const data = { [e.target.name]: e.target.value }
-    createProduct(data)
+    setProductFields(data)
   }
 
   return (
@@ -28,12 +28,14 @@ const Main = ({ title, description }: Props) => {
         <TextArea onChange={setData} rows={10} name="description" placeholder="Description" value={description} />
         <H3>Options</H3>
         <GridBox grid="auto auto auto" margin="20px">
-          <Select onChange={setData} name="color">
-            <option value="balack">Black</option>
-            <option value="white">White</option>
-            <option value="green">Green</option>
-            <option value="red">Red</option>
-            <option value="blue">Blue</option>
+          <Select onChange={setData} name="color" value={options.color}>
+          <option disabled>Choose Color</option>
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Green">Green</option>
+            <option value="Red">Red</option>
+            <option value="Blue">Blue</option>
+            <option value="Grey">Grey</option>
           </Select>
           <Input onChange={setData} type="text" name="size" placeholder="Size" />
           <Add style={{ marginBottom: "20px" }}>Add Option</Add>

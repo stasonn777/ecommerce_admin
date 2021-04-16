@@ -46,7 +46,6 @@ const App = () => {
             <PrivateRoute exact path="/products/:id" component={SingleProduct} />
           </Container>
         </div>
-
       </Router>
     </>
   )

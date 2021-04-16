@@ -11,21 +11,15 @@ export const setUserFields = (data: {}) => ({
 })
 
 export const loadUser = () => {
-  console.log('Load user')
   return async (dispatch: Dispatch<UserAction>) => {
-    console.log('Load user1')
     if(localStorage.token) {
-      console.log('Load user if')
       setAuthToken(localStorage.token)
     }
-    console.log('Load user2')
     try {
       const response = await axios.get('http://localhost:5000/api/auth') 
       dispatch({type: UserActionTypes.USER_LOADED, payload: response.data})
-      console.log('User Loaded')
     } catch (err) {
       dispatch({type: UserActionTypes.AUTH_ERROR, payload: err.response.data.msg})
-      console.log('Load user error')
     }
   }
 }

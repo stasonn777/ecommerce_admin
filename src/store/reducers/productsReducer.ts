@@ -14,6 +14,8 @@ export const productsReducer = (state = initialState, action: ProductsAction) : 
       return {loading: false, error: null, products: action.payload}
     case ProductsActionTypes.FETCH_PRODUCTS_ERROR:
       return {loading: false, error: action.payload, products: []}
+    case ProductsActionTypes.DELETE_PRODUCTS: 
+      return {...state, products: state.products.filter(product => product._id !== action.payload)}
     default:
       return state
   }

@@ -1,43 +1,41 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useActions } from '../../hooks/useActions'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import Main from './Main';
 import Aside from './Aside';
 import { Wrapper } from '../../styles';
+import { Redirect } from 'react-router-dom';
+import Spinner from '../layout/Spinner';
 
 interface MatchParams {
   match: {
-    isExact: boolean
     params: { id: string }
-    path: string
-    url: string
   }
 }
 
 const SingleProduct = ({ match }: MatchParams) => {
-  const product = useTypedSelector(state => state.singleProduct.singleProduct)
+  const { ...singleProduct } = useTypedSelector(state => state.singleProduct)
 
-  const { fetchSingleProduct, createNewProduct, postNewProduct } = useActions()
+  const { fetchSingleProduct, postNewProduct, setAlert } = useActions()
 
   useEffect(() => {
-    if (!match.params.id) {
-      createNewProduct()
-    } else {
+    if (match.params.id) {
       fetchSingleProduct(match.params.id)
     }
     // eslint-disable-next-line
   }, [])
 
   const postProduct = () => {
-    console.log(product)
-    
-    // postNewProduct(product)
+    postNewProduct(singleProduct)
+    setAlert('Product saved successfully', 'success') 
   }
+  if (singleProduct.loading) { return <Spinner /> }
 
   return (
     <Wrapper>
-      <Main title={product.title} description={product.description} options={product.options} />
-      <Aside brand={product.brand} price={product.price} newPrice={product.newPrice} countInStock={product.countInStock} featuredImg={product.featuredImg} categories={product.categories} postProduct={postProduct} />
+      {singleProduct._id !== '' && <Redirect to={`/products/${singleProduct._id}`} />}
+      <Main title={singleProduct.title} description={singleProduct.description} options={singleProduct.options} />
+      <Aside id={singleProduct._id} brand={singleProduct.brand} price={singleProduct.price} newPrice={singleProduct.newPrice} countInStock={singleProduct.countInStock} featuredImg={singleProduct.featuredImg} categories={singleProduct.categories} postProduct={postProduct} />
     </Wrapper>
   )
 }

@@ -1,28 +1,21 @@
-export interface SingleProductTypes {
+export interface SingleProductState {
   title: string
   description: string
   featuredImg: string
   images: string[]
   brand: string
-<<<<<<< HEAD
   price: number
   newPrice: number
-=======
-  price: string
-  newPrice: string
->>>>>>> cf314fb20e0c308034597f54b844f76c8a81c32d
   countInStock: number
   options: {
     color: string
     size: string
     others: { key: string; value: string }[]
-  }[]
+  }
+  status: string
   createdAt: Date
   categories: string[]
-}
-
-export interface SingleProductState {
-  singleProduct: SingleProductTypes
+  _id: string
   loading: boolean
   error: null | string
 }
@@ -32,10 +25,13 @@ export enum SingleProductActionTypes {
   FETCH_PRODUCT_SUCCESS = 'FETCH_PRODUCT_SUCCESS',
   FETCH_PRODUCT_ERROR = 'FETCH_PRODUCT_ERROR',
   CREATE_NEW_PRODUCT = 'CREATE_NEW_PRODUCT',
-  CREATE_PRODUCT = 'CREATE_PRODUCT',
+  SET_PRODUCT_FIELDS = 'SET_PRODUCT_FIELDS',
+  SET_PRODUCT_OPTIONS = 'SET_PRODUCT_OPTIONS',
   POST_NEW_PRODUCT = 'POST_NEW_PRODUCT',
   CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS',
   CREATE_PRODUCT_ERROR = 'CREATE_PRODUCT_ERROR',
+  DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS',
+  DELETE_PRODUCT_ERROR = 'DELETE_PRODUCT_ERROR',
 }
 
 interface FetchedProductAction {
@@ -43,7 +39,7 @@ interface FetchedProductAction {
 }
 interface FetchedProductSuccessAction {
   type: SingleProductActionTypes.FETCH_PRODUCT_SUCCESS
-  payload: SingleProductTypes
+  payload: SingleProductState
 }
 interface FetchedProductErrorAction {
   type: SingleProductActionTypes.FETCH_PRODUCT_ERROR
@@ -52,20 +48,31 @@ interface FetchedProductErrorAction {
 interface CreateNewProductAction {
   type: SingleProductActionTypes.CREATE_NEW_PRODUCT
 }
-interface CreateProductAction {
-  type: SingleProductActionTypes.CREATE_PRODUCT
-  payload: SingleProductTypes
+interface SetProductFieldsAction {
+  type: SingleProductActionTypes.SET_PRODUCT_FIELDS
+  payload: SingleProductState
+}
+interface SetProductOptionsAction {
+  type: SingleProductActionTypes.SET_PRODUCT_OPTIONS
+  payload: SingleProductState
 }
 interface PostNewProductAction {
   type: SingleProductActionTypes.POST_NEW_PRODUCT
 }
 interface CreateProductSuccessAction {
   type: SingleProductActionTypes.CREATE_PRODUCT_SUCCESS
-  payload: SingleProductTypes
+  payload: string
 }
 interface CreateProductErrorAction {
   type: SingleProductActionTypes.CREATE_PRODUCT_ERROR
   payload: string
 }
+interface DeleteProductAction {
+  type: SingleProductActionTypes.DELETE_PRODUCT_SUCCESS
+}
+interface DeleteProductErrorAction {
+  type: SingleProductActionTypes.DELETE_PRODUCT_ERROR
+  payload: string
+}
 
-export type SingleProductAction = FetchedProductAction | FetchedProductSuccessAction | FetchedProductErrorAction | CreateNewProductAction | CreateProductAction | PostNewProductAction | CreateProductSuccessAction | CreateProductErrorAction
+export type SingleProductAction = FetchedProductAction | FetchedProductSuccessAction | FetchedProductErrorAction | CreateNewProductAction | SetProductFieldsAction | SetProductOptionsAction | PostNewProductAction | CreateProductSuccessAction | CreateProductErrorAction | DeleteProductAction | DeleteProductErrorAction

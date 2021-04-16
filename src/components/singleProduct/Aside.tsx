@@ -1,9 +1,12 @@
 import React, { ChangeEvent } from 'react'
+import { NavLink } from 'react-router-dom'
 import { useActions } from '../../hooks/useActions'
+import { removeProduct } from '../../store/actionCreators/singleProduct'
 import { GridBox, Add, Edit, Section, Input } from '../../styles'
 import { FeaturedImg, FormWrapper, H3 } from './styles'
 
 interface Props {
+  id: string
   featuredImg: string
   brand: string
   price: number
@@ -13,13 +16,18 @@ interface Props {
   postProduct: any
 }
 
-const Aside = ({countInStock, brand, price, newPrice, featuredImg, postProduct} : Props) => {
+const Aside = ({countInStock, brand, price, newPrice, featuredImg, postProduct, id} : Props) => {
 
-  const { createProduct } = useActions()
+  const { setProductFields, removeProduct, setAlert } = useActions()
 
   const setData = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>) => {
     const data = { [e.target.name]: e.target.value }
-    createProduct(data)
+    setProductFields(data)
+  }
+
+  const onRemove = () => {
+    removeProduct(id)
+    setAlert('Product removed successfully', 'success') 
   }
 
   return (
@@ -28,7 +36,7 @@ const Aside = ({countInStock, brand, price, newPrice, featuredImg, postProduct} 
         <GridBox grid="auto auto" margin="20px">
           <Add onClick={postProduct}>Save</Add>
           <Edit>Publish</Edit>
-          {/* <a href="">Remove</a> */}
+          <NavLink onClick={onRemove} to='/products'>Remove</NavLink>
         </GridBox>
         <label htmlFor="brand">Brand</label>
         <Input onChange={setData} type="text" name="brand" placeholder="Brand" value={brand} />

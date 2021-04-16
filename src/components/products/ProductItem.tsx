@@ -4,7 +4,12 @@ import { ProductTypes } from '../../types/products'
 import { Remove, Edit, GridBox } from '../../styles'
 import { Img, SLink } from './styles'
 
-const ProductItem = (state: ProductTypes) => {
+interface Props {
+  state: ProductTypes,
+  removeItem: (arg0: string) => void
+}
+
+const ProductItem = ({state,  removeItem}: Props) => {
   const { _id, title, featuredImg, brand, price, countInStock, categories, createdAt } = state
   const [createDate, setCreateDate] = useState('')
 
@@ -18,6 +23,10 @@ const ProductItem = (state: ProductTypes) => {
     date(createdAt)
   })
 
+  const onRemove = () => {
+    removeItem(_id)
+  }
+
   return (
     <>
       <span><input type="checkbox" name="" id=""/></span>
@@ -28,7 +37,7 @@ const ProductItem = (state: ProductTypes) => {
       <span>{categories}</span>
       <span>{brand}</span>
       <span>{createDate}</span>
-      <span><GridBox grid="auto auto" margin="0"><Remove>Remove</Remove><NavLink to={`/products/${_id}`} exact><Edit>Edit</Edit></NavLink></GridBox></span>
+      <span><GridBox grid="auto auto" margin="0"><Remove onClick={onRemove}>Remove</Remove><NavLink to={`/products/${_id}`} exact><Edit>Edit</Edit></NavLink></GridBox></span>
     </>
   )
 }

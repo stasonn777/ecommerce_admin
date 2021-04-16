@@ -10,15 +10,20 @@ import { Grid, Header } from './styles'
 const Products: React.FC = () => {
   const { products, error, loading } = useTypedSelector(state => state.products)
 
-  const { fetchProducts } = useActions()
+  const { fetchProducts, createNewProduct, removeProduct, setAlert } = useActions()
 
   useEffect(() => {
     fetchProducts()
     // eslint-disable-next-line
   }, [])
 
+  const removeItem = (id: string) => {
+    removeProduct(id)
+    setAlert('Product removed successfully', 'success') 
+  }
+
   const showProducts = products.map(product => {
-    return <ProductItem key={product._id} {...product} />
+    return <ProductItem key={product._id} state={product} removeItem={removeItem}/>
   })
 
   if (loading) { return <Spinner /> }
@@ -28,7 +33,7 @@ const Products: React.FC = () => {
     <Section width="100%">
       <Header>
         <span>Products</span>
-        <NavLink to="/new-product"><Create>Create New Product</Create></NavLink>
+        <NavLink onClick={() => createNewProduct()} to="/new-product"><Create>Create New Product</Create></NavLink>
       </Header>
       <Grid>
         <span><input type="checkbox" name="" id=""/></span>
