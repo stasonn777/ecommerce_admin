@@ -30,7 +30,7 @@ const ProductItem = ({state,  removeItem}: Props) => {
   return (
     <>
       <span><input type="checkbox" name="" id=""/></span>
-      <span><NavLink to={`/products/${_id}`} exact><Img src={featuredImg} alt=""/></NavLink></span>
+      <span><NavLink to={`/products/${_id}`} exact><Img src={`http://localhost:5000${featuredImg}`} alt=""/></NavLink></span>
       <span><SLink to={`/products/${_id}`}>{title}</SLink></span>
       <span>{countInStock}</span>
       <span>$ {price}</span>

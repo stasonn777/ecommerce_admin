@@ -1,14 +1,12 @@
-import { Dispatch } from 'redux'
-import { AlertAction, AlertActionTypes } from '../../types/alerts'
+import { AlertActionTypes } from '../../types/alerts'
+import { AppThunk } from '../../types/thunk'
 
-
-export const setAlert = (msg: null | string, type: string) => {
-  return (dispatch: Dispatch<AlertAction>) => {
+export const setAlert = (msg: null | string, type: string): AppThunk => {
+  return (dispatch) => {
     dispatch({ type: AlertActionTypes.SET_ALERT, payload: { msg, type } })
-    
+
     setTimeout(() => {
       dispatch({ type: AlertActionTypes.REMOVE_ALERT })
-    }, 5000)
+    }, 3000)
   }
 }
-

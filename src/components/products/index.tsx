@@ -10,7 +10,7 @@ import { Grid, Header } from './styles'
 const Products: React.FC = () => {
   const { products, error, loading } = useTypedSelector(state => state.products)
 
-  const { fetchProducts, createNewProduct, removeProduct, setAlert } = useActions()
+  const { fetchProducts, createNewProduct, removeProduct } = useActions()
 
   useEffect(() => {
     fetchProducts()
@@ -19,7 +19,6 @@ const Products: React.FC = () => {
 
   const removeItem = (id: string) => {
     removeProduct(id)
-    setAlert('Product removed successfully', 'success') 
   }
 
   const showProducts = products.map(product => {

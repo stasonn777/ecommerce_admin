@@ -7,11 +7,9 @@ export interface SingleProductState {
   price: number
   newPrice: number
   countInStock: number
-  options: {
-    color: string
-    size: string
-    others: { key: string; value: string }[]
-  }
+  color: string
+  size: string
+  options:  {id: string, name: string, value: string, type: string}[]
   status: string
   createdAt: Date
   categories: string[]
@@ -27,11 +25,15 @@ export enum SingleProductActionTypes {
   CREATE_NEW_PRODUCT = 'CREATE_NEW_PRODUCT',
   SET_PRODUCT_FIELDS = 'SET_PRODUCT_FIELDS',
   SET_PRODUCT_OPTIONS = 'SET_PRODUCT_OPTIONS',
+  SET_OPTIONS_FIELDS = 'SET_OPTIONS_FIELDS',
   POST_NEW_PRODUCT = 'POST_NEW_PRODUCT',
   CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS',
   CREATE_PRODUCT_ERROR = 'CREATE_PRODUCT_ERROR',
   DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS',
   DELETE_PRODUCT_ERROR = 'DELETE_PRODUCT_ERROR',
+  UPLOAD_PRODUCT_IMAGE = 'UPLOAD_PRODUCT_IMAGE',
+  UPLOAD_PRODUCT_IMAGE_SUCCESS = 'UPLOAD_PRODUCT_IMAGE_SUCCESS',
+  UPLOAD_PRODUCT_IMAGE_ERROR = 'UPLOAD_PRODUCT_IMAGE_ERROR'
 }
 
 interface FetchedProductAction {
@@ -54,7 +56,11 @@ interface SetProductFieldsAction {
 }
 interface SetProductOptionsAction {
   type: SingleProductActionTypes.SET_PRODUCT_OPTIONS
-  payload: SingleProductState
+  payload: {id: string, name: string, value: string, type: string}
+}
+interface SetOptionsFieldsAction {
+  type: SingleProductActionTypes.SET_OPTIONS_FIELDS
+  payload: {id: string, name: string, value: string, type: string}
 }
 interface PostNewProductAction {
   type: SingleProductActionTypes.POST_NEW_PRODUCT
@@ -74,5 +80,16 @@ interface DeleteProductErrorAction {
   type: SingleProductActionTypes.DELETE_PRODUCT_ERROR
   payload: string
 }
+interface UploadProductImageAction {
+  type: SingleProductActionTypes.UPLOAD_PRODUCT_IMAGE
+}
+interface UploadProductImageSuccessAction {
+  type: SingleProductActionTypes.UPLOAD_PRODUCT_IMAGE_SUCCESS
+  payload: string
+}
+interface UploadProductImageErrorAction {
+  type: SingleProductActionTypes.UPLOAD_PRODUCT_IMAGE_ERROR
+  payload: string
+}
 
-export type SingleProductAction = FetchedProductAction | FetchedProductSuccessAction | FetchedProductErrorAction | CreateNewProductAction | SetProductFieldsAction | SetProductOptionsAction | PostNewProductAction | CreateProductSuccessAction | CreateProductErrorAction | DeleteProductAction | DeleteProductErrorAction
+export type SingleProductAction = FetchedProductAction | FetchedProductSuccessAction | FetchedProductErrorAction | CreateNewProductAction | SetProductFieldsAction | SetProductOptionsAction | SetOptionsFieldsAction | PostNewProductAction | CreateProductSuccessAction | CreateProductErrorAction | DeleteProductAction | DeleteProductErrorAction | UploadProductImageAction |UploadProductImageSuccessAction | UploadProductImageErrorAction
