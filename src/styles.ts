@@ -20,9 +20,12 @@ export const GlobalStyle = createGlobalStyle`
     color: #686c71;
     font-weight: 400;
   }
+  input[type="file"] {
+    display: none;
+  }
 `
 
-export const Remove = styled.button`
+const ButtonGroup = css`
   padding: 10px 20px;
   border-radius: 0.25rem;
   border: 1px solid transparent;
@@ -42,7 +45,12 @@ export const Remove = styled.button`
     box-shadow: none;
   }
 `
-export const Edit = styled(Remove)`
+
+export const Remove = styled.button`
+  ${ButtonGroup}
+`
+export const Edit = styled.button`
+  ${ButtonGroup}
   background-color: #00acc1;
   border-color: #009eb2;
   box-shadow: 0 0 7px 0 rgb(0 172 193 / 56%), 0 0 10px 2px rgb(0 172 193 / 20%);
@@ -53,7 +61,8 @@ export const Edit = styled(Remove)`
     background-color: #00899a;
   }
 `
-export const Create = styled(Remove)`
+export const Create = styled.button`
+  ${ButtonGroup}
   margin-left: 20px;
   background-color: #00acc1;
   border-color: #009eb2;
@@ -65,7 +74,22 @@ export const Create = styled(Remove)`
     background-color: #00899a;
   }
 `
-export const Add = styled(Remove)`
+export const Add = styled.button`
+  ${ButtonGroup}
+  color: #37474f;
+  background-color: #eceff1;
+  border-color: #e3e8eb;
+  box-shadow: none;
+  &:hover {
+    background-color: #d6dce1;
+    border-color: #cfd6db;
+  }
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgb(141 141 141 / 50%);
+  }
+`
+export const Label = styled.label`
+  ${ButtonGroup}
   color: #37474f;
   background-color: #eceff1;
   border-color: #e3e8eb;
@@ -95,7 +119,7 @@ export const Section = styled.div<Props>`
   transition: all 0.5s ease-in-out;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
-  width: ${p => p.width} ;
+  width: ${(p) => p.width};
 `
 export const Wrapper = styled.div`
   display: inline-flex;
@@ -112,12 +136,13 @@ const InputGroup = css`
   font-size: 14px;
   height: auto;
   border: 1px solid #ced4da;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   margin-bottom: 20px;
   &:focus {
     outline: none;
     border-color: #1796b8;
-    box-shadow: 0 0 5px 0 rgb(17 164 227 / 56%), 0 0 5px 2px rgb(44 150 183 / 72%);
+    box-shadow: 0 0 5px 0 rgb(17 164 227 / 56%),
+      0 0 5px 2px rgb(44 150 183 / 72%);
   }
 `
 export const Input = styled.input`
@@ -137,7 +162,7 @@ interface GridProps {
 }
 export const GridBox = styled.div<GridProps>`
   display: grid;
-  grid-template-columns: ${p => p.grid};
-  margin-bottom: ${p => p.margin};
+  grid-template-columns: ${(p) => p.grid};
+  margin-bottom: ${(p) => p.margin};
   grid-gap: 20px;
-` 
+`

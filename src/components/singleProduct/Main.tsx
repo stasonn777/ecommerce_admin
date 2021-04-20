@@ -1,44 +1,67 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useActions } from '../../hooks/useActions'
 import { GridBox, Add, Input, Section, TextArea, Select } from '../../styles'
 import { FormWrapper, H3 } from './styles'
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import {v4 as uuidv4} from 'uuid'
 
-interface Props {
-  title: string
-  description: string
-  options: {
-    color: string
-    size: string
-    others: { key: string; value: string }[]
-  }
-}
+const Main = () => {
+  const { title, description, color, size, options } = useTypedSelector(state => state.singleProduct)
+  const { setProductFields, setProductOptions, setOptionsFields } = useActions()
+  // const [customOptions, setCustomOptions] = useState<any[]>([])
 
-const Main = ({ title, description, options }: Props) => {
-  const { setProductFields } = useActions()
+  // useEffect(() => {
+  //   const arr = []
+  //   for (const [key, value] of Object.entries(options)) {
+  //     arr.push({ id: uuidv4(), name: [key], value: value})
+  //   }
+  //   setCustomOptions(arr)
+  // }, [options])
 
-  const setData = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>) => {
+  const onChangeData = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>) => {
     const data = { [e.target.name]: e.target.value }
     setProductFields(data)
   }
+  
+  const addOption = () => {
+    const result = prompt('Enter field name')
+    result !== '' && result !== null? setProductOptions({id: uuidv4(), name: result, value: '', type: 'text'}) 
+    :
+    alert('Please enter name')
+  }
+
+  const onChangeOptions = (e: any, item: any) => {
+     setOptionsFields({ ...item, value: e.target.value })
+  }  
 
   return (
     <Section width="75%">
       <FormWrapper>
-        <Input onChange={setData} type="text" name="title" placeholder="Title" value={title} />
-        <TextArea onChange={setData} rows={10} name="description" placeholder="Description" value={description} />
+        <Input onChange={onChangeData} type="text" name="title" placeholder="Title" value={title} />
+        <TextArea onChange={onChangeData} rows={10} name="description" placeholder="Description" value={description} />
         <H3>Options</H3>
         <GridBox grid="auto auto auto" margin="20px">
-          <Select onChange={setData} name="color" value={options.color}>
-          <option disabled>Choose Color</option>
-            <option value="Black">Black</option>
-            <option value="White">White</option>
-            <option value="Green">Green</option>
-            <option value="Red">Red</option>
-            <option value="Blue">Blue</option>
-            <option value="Grey">Grey</option>
-          </Select>
-          <Input onChange={setData} type="text" name="size" placeholder="Size" />
-          <Add style={{ marginBottom: "20px" }}>Add Option</Add>
+          <div>
+            <label htmlFor="color">Color</label>
+            <Select onChange={onChangeData} name="color" value={color}>
+              <option disabled>Choose Color</option>
+              <option value="Black">Black</option>
+              <option value="White">White</option>
+              <option value="Green">Green</option>
+              <option value="Red">Red</option>
+              <option value="Blue">Blue</option>
+              <option value="Grey">Grey</option>
+            </Select>
+          </div>
+          <div>
+            <label htmlFor="size">Size</label>
+            <Input onChange={onChangeData} type="text" name="size" placeholder="Size" value={size} />
+          </div>
+          {options.map((item) => <div key={item.id}>
+            <label htmlFor={item.name}>{item.name}</label>
+            <Input onChange={e => onChangeOptions(e, item)} type="text" name={item.name} placeholder={item.name} value={item.value} />
+          </div>)}
+          <Add onClick={addOption} style={{ marginBottom: "20px", marginTop: '25px' }}>Add Option</Add>
         </GridBox>
       </FormWrapper>
     </Section>

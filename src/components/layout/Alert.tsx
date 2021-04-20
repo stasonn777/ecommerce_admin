@@ -7,20 +7,25 @@ const AlertWrapper = styled.div`
   padding: 30px;
   font-size: 18px;
   text-align: center;
-  margin: auto;
+  width: max-content;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
   color: white;
 `
 const Alert = () => {
 
-  const {msg} = useTypedSelector(state => state.alert) // type
+  const { msg } = useTypedSelector(state => state.alert) // type
 
   return (
-    msg !== null ? 
-    <AlertWrapper>
-      <span>{msg}</span>
-    </AlertWrapper>
-    : 
-    <div></div>
+    msg !== null ?
+      <AlertWrapper>
+        <span>{msg}</span>
+      </AlertWrapper>
+      :
+      <div></div>
   )
 }
 

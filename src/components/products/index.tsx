@@ -19,7 +19,6 @@ const Products: React.FC = () => {
 
   const removeItem = (id: string) => {
     removeProduct(id)
-    setAlert('Product removed successfully', 'success') 
   }
 
   const showProducts = products.map(product => {
