@@ -16,7 +16,7 @@ interface MatchParams {
 const SingleProduct = ({ match }: MatchParams) => {
   const { ...singleProduct } = useTypedSelector(state => state.singleProduct)
 
-  const { fetchSingleProduct, postNewProduct } = useActions()
+  const { fetchSingleProduct, postNewProduct, updateProduct } = useActions()
 
   useEffect(() => {
     if (match.params.id) {
@@ -28,13 +28,17 @@ const SingleProduct = ({ match }: MatchParams) => {
   const postProduct = () => {
     postNewProduct(singleProduct)
   }
+
+  const updateCurrentProduct = () => {
+    updateProduct(singleProduct)
+  }
   if (singleProduct.loading) { return <Spinner /> }
 
   return (
     <Wrapper>
       {singleProduct._id !== '' && <Redirect to={`/products/${singleProduct._id}`} />}
       <Main />
-      <Aside postProduct={postProduct} />
+      <Aside postProduct={postProduct} updateCurrentProduct={updateCurrentProduct} />
     </Wrapper>
   )
 }

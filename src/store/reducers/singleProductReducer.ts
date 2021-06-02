@@ -28,6 +28,7 @@ export const singleProductReducer = (state = initialState, action: SingleProduct
   switch (action.type) {
     case SingleProductActionTypes.FETCH_PRODUCT:
     case SingleProductActionTypes.POST_NEW_PRODUCT:
+    case SingleProductActionTypes.UPDATE_PRODUCT:
     case SingleProductActionTypes.UPLOAD_PRODUCT_IMAGE:
       return { ...state, loading: true }
     case SingleProductActionTypes.FETCH_PRODUCT_SUCCESS:
@@ -42,12 +43,14 @@ export const singleProductReducer = (state = initialState, action: SingleProduct
     case SingleProductActionTypes.SET_OPTIONS_FIELDS:
       return { ...state,  options: state.options.map(item => item.id === action.payload.id ? action.payload : item) }
     case SingleProductActionTypes.CREATE_PRODUCT_SUCCESS:
+    case SingleProductActionTypes.UPDATE_PRODUCT_SUCCESS:
       return { ...state, loading: false, _id: action.payload }
     case SingleProductActionTypes.UPLOAD_PRODUCT_IMAGE_SUCCESS:
       return { ...state, loading: false, featuredImg: action.payload}
     case SingleProductActionTypes.CREATE_PRODUCT_ERROR:
     case SingleProductActionTypes.FETCH_PRODUCT_ERROR:
     case SingleProductActionTypes.DELETE_PRODUCT_ERROR:
+    case SingleProductActionTypes.UPDATE_PRODUCT_ERROR:
       return { ...state, loading: false, error: action.payload }
     default:
       return state

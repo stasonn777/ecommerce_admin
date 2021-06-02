@@ -2,10 +2,9 @@ import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useActions } from '../../hooks/useActions'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { Create, Section } from '../../styles'
+import { Create, Section, Grid, Header } from '../../styles'
 import Spinner from '../layout/Spinner'
 import ProductItem from './ProductItem'
-import { Grid, Header } from './styles'
 
 const Products: React.FC = () => {
   const { products, error, loading } = useTypedSelector(state => state.products)

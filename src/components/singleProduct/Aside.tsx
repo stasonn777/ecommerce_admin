@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useActions } from '../../hooks/useActions'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
@@ -7,10 +7,10 @@ import { FeaturedImg, FormWrapper, H3 } from './styles'
 
 interface Props {
   postProduct: any
+  updateCurrentProduct: any
 }
 
-const Aside = ({ postProduct}: Props) => {
-  const [filename, setFilename] = useState('Choose file')
+const Aside = ({ postProduct, updateCurrentProduct }: Props) => {
   const { countInStock, brand, price, newPrice, featuredImg, _id } = useTypedSelector(state => state.singleProduct)
   const { setProductFields, removeProduct, setProductFuturedImage } = useActions()
 
@@ -31,7 +31,9 @@ const Aside = ({ postProduct}: Props) => {
     <Section width='25%'>
       <FormWrapper>
         <GridBox grid="auto auto" margin="20px">
-          <Add onClick={postProduct}>Save</Add>
+        {_id ? <Add onClick={updateCurrentProduct}>Update</Add> : <Add onClick={postProduct}>Save</Add>}
+          {/* <Add onClick={postProduct}>Save</Add>
+          <Add onClick={updateCurrentProduct}>Update</Add> */}
           <Edit>Publish</Edit>
           <NavLink onClick={onRemove} to='/products'>Remove</NavLink>
         </GridBox>
@@ -47,9 +49,9 @@ const Aside = ({ postProduct}: Props) => {
         <Input onChange={setData} type="number" name="countInStock" placeholder="In stock" value={countInStock} />
         <H3>Featured image</H3>
         {featuredImg !== '' && <FeaturedImg src={`http://localhost:5000${featuredImg}`} alt="" />}
-        {filename}
+        Choose file 
         <Label>
-          <input type="file" onChange={onSetImage}/>
+          <input type="file" onChange={onSetImage} />
           Upload Image
         </Label>
       </FormWrapper>

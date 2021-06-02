@@ -2,8 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 
-const AlertWrapper = styled.div`
-  background: #c05050;
+interface Props { 
+  background: string
+}
+
+const AlertWrapper = styled.div<Props>`
+  background: ${(p) => p.background};
   padding: 30px;
   font-size: 18px;
   text-align: center;
@@ -17,11 +21,11 @@ const AlertWrapper = styled.div`
 `
 const Alert = () => {
 
-  const { msg } = useTypedSelector(state => state.alert) // type
+  const { msg, type} = useTypedSelector(state => state.alert) // type
 
   return (
     msg !== null ?
-      <AlertWrapper>
+      <AlertWrapper background={type === 'success' ? '#14c161' : '#c05050'}>
         <span>{msg}</span>
       </AlertWrapper>
       :
