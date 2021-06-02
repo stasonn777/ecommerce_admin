@@ -44,6 +44,36 @@ export const setOptionsFields = (data: {}) => ({
   type: SingleProductActionTypes.SET_OPTIONS_FIELDS,
   payload: data,
 })
+export const updateProduct = (product: SingleProductState) => {
+  return async (dispatch: Dispatch<SingleProductAction | AppThunk>) => {
+    dispatch({ type: SingleProductActionTypes.UPDATE_PRODUCT })
+    if (localStorage.token) {
+      setAuthToken(localStorage.token)
+    }
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+      const response = await axios.put(
+        `http://localhost:5000/api/products/${product._id}`,
+        product,
+        config
+      )
+      dispatch({
+        type: SingleProductActionTypes.UPDATE_PRODUCT_SUCCESS,
+        payload: response.data._id,
+      })
+      dispatch(setAlert('Product updated successfully', 'success'))
+    } catch (err) {
+      dispatch({
+        type: SingleProductActionTypes.UPDATE_PRODUCT_ERROR,
+        payload: 'Error',
+      })
+    }
+  }
+}
 export const postNewProduct = (product: SingleProductState) => {
   return async (dispatch: Dispatch<SingleProductAction | AppThunk>) => {
     dispatch({ type: SingleProductActionTypes.POST_NEW_PRODUCT })

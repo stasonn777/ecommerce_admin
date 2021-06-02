@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ProductTypes } from '../../types/products'
-import { Remove, Edit, GridBox } from '../../styles'
-import { Img, SLink } from './styles'
+import { Remove, Edit, GridBox, Img, SLink } from '../../styles'
 
 interface Props {
   state: ProductTypes,

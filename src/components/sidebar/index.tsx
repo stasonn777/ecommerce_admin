@@ -35,6 +35,7 @@ const Sidebar = () => {
       <Ul>
         <li><Nav to="/" exact>Home</Nav></li>
         <li><Nav to="/products" exact>Products</Nav></li>
+        <li><Nav to="/categories" exact>Categories</Nav></li>
       </Ul>
     </Aside>
   )

@@ -2,10 +2,9 @@ import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useActions } from '../../hooks/useActions'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { Create, Section } from '../../styles'
+import { Create, Section, Grid, Header } from '../../styles'
 import Spinner from '../layout/Spinner'
 import ProductItem from './ProductItem'
-import { Grid, Header } from './styles'
 
 const Products: React.FC = () => {
   const { products, error, loading } = useTypedSelector(state => state.products)
@@ -34,7 +33,7 @@ const Products: React.FC = () => {
         <span>Products</span>
         <NavLink onClick={() => createNewProduct()} to="/new-product"><Create>Create New Product</Create></NavLink>
       </Header>
-      <Grid>
+      <Grid columns="1fr 2fr 4fr 1fr 1fr 2fr 1fr 2fr 3fr">
         <span><input type="checkbox" name="" id=""/></span>
         <span>Img</span>
         <span>Title</span>

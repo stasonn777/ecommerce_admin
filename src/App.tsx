@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import Categories from "./components/Categories";
 import Home from "./components/home";
 import Alert from "./components/layout/Alert";
 import Header from "./components/layout/Header";
@@ -44,6 +45,7 @@ const App = () => {
             <PrivateRoute exact path="/products" component={Products} />
             <PrivateRoute exact path="/new-product" component={SingleProduct} />
             <PrivateRoute exact path="/products/:id" component={SingleProduct} />
+            <PrivateRoute exact path="/categories" component={Categories} />
           </Container>
         </div>
       </Router>
