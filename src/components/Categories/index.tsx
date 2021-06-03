@@ -19,7 +19,6 @@ const Categories = () => {
       <Section width='40%'>
         <Header>
           <NavLink onClick={() => { }} to="/new-product"><Create>Create New Category</Create></NavLink>
-          
         </Header>
       </Section>
     </Wrapper>
