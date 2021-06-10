@@ -17,16 +17,25 @@ const Aside = ({ postProduct, updateCurrentProduct, allCategories }: Props) => {
 
   const setData = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>) => {
     let data = {}
-    if (e.target.name !== 'categories') {
-      data = { [e.target.name]: e.target.value }
+    data = { [e.target.name]: e.target.value }
+    setProductFields(data)
+  }
+
+  const setCategory = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    const id = e.target.id
+    let data = {}
+    let modCategories = categories
+    
+    const unique = categories.every(c => c !== id)
+
+    if (!unique) {
+      modCategories = modCategories.filter(c => c !== id)
     } else {
-      const newCats = categories.filter(c => c === e.target.id)
-      console.log(newCats)
-      
-      categories.push(e.target.id)
-      data = { [e.target.name]: categories }
+      modCategories.push(id)
     }
 
+    data = { [e.target.name]: modCategories }
     setProductFields(data)
   }
 
@@ -38,11 +47,11 @@ const Aside = ({ postProduct, updateCurrentProduct, allCategories }: Props) => {
     setProductFuturedImage(e.target.files[0])
   }
 
-  const checkCategories = allCategories.map(c => 
-  <div key={c._id}>
-    <input onChange={setData} id={c._id} type="checkbox" name="categories" value={c.name} />
-    <label htmlFor={c.name} checked>{c.name}</label>
-  </div>)
+  const checkCategories = allCategories.map(c =>
+    <div key={c._id}>
+      <input onChange={setCategory} id={c._id} type="checkbox" name="categories" value={c.name} checked={categories.some(it => it === c._id)} />
+      <label htmlFor={c.name} checked>{c.name}</label>
+    </div>)
 
   return (
     <Section width='25%'>
