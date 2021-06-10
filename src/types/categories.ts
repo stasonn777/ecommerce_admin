@@ -1,9 +1,14 @@
-export interface CategoryTypes {
-  img: string
-  title: string
-  slug: string
-  count: number
-}
+// export interface CategoryTypes {
+//   _id: string
+//   name: string
+//   image: string
+//   slug: string
+//   products: []
+//   parent: []
+
+import { CategoryTypes } from "./singleCategory";
+
+// }
 export interface CategoriesState{
   categories: CategoryTypes[]
   loading: boolean
@@ -15,6 +20,7 @@ export enum CategoryActionTypes {
   FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS',
   FETCH_CATEGORIES_ERROR = 'FETCH_CATEGORIES_ERROR',
   DELETE_CATEGORY = 'DELETE_CATEGORY',
+  DELETE_CATEGORY_ERROR = 'DELETE_CATEGORY_ERROR',
   UPDATE_CATEGORY = 'UPDATE_CATEGORY',
 }
 
@@ -29,6 +35,14 @@ interface FetchCategoriesErrorAction {
   type: CategoryActionTypes.FETCH_CATEGORIES_ERROR
   payload: string
 }
+interface DeleteCategoryAction {
+  type: CategoryActionTypes.DELETE_CATEGORY
+  payload: string
+}
+interface DeleteCategoryErrorAction {
+  type: CategoryActionTypes.DELETE_CATEGORY_ERROR
+  payload: string
+}
 
 
-export type CategoryAction = FetchCategoriesAction | FetchCategoriesSuccessAction | FetchCategoriesErrorAction
+export type CategoryAction = FetchCategoriesAction | FetchCategoriesSuccessAction | FetchCategoriesErrorAction | DeleteCategoryAction | DeleteCategoryErrorAction

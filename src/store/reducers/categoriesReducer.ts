@@ -14,6 +14,8 @@ export const categoriesReducer = (state = initialState, action: CategoryAction):
       return {...state, loading: false, categories: action.payload}
     case CategoryActionTypes.FETCH_CATEGORIES_ERROR: 
       return {...state, error: action.payload}
+    case CategoryActionTypes.DELETE_CATEGORY:
+      return {...state, categories: state.categories.filter(c => c._id !== action.payload)}
     default:
       return state
   }

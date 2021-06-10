@@ -197,3 +197,15 @@ export const SLink = styled(NavLink)`
   color: #686c71;
   font-size: 16px;
 `
+export const FormWrapper = styled.div`
+  width: 100%;
+  padding: 20px;
+`
+export const H3 = styled.h3`
+  margin: 20px 0 10px;
+  color: #111;
+  font-weight: 600;
+`
+export const FeaturedImg = styled.img`
+  max-width: 100%;
+`

@@ -15,14 +15,19 @@ interface MatchParams {
 
 const SingleProduct = ({ match }: MatchParams) => {
   const { ...singleProduct } = useTypedSelector(state => state.singleProduct)
+  const {categories} = useTypedSelector(state => state.categories)
 
-  const { fetchSingleProduct, postNewProduct, updateProduct } = useActions()
+  const { fetchSingleProduct, postNewProduct, updateProduct, fetchCategories } = useActions()
 
   useEffect(() => {
     if (match.params.id) {
       fetchSingleProduct(match.params.id)
     }
     // eslint-disable-next-line
+  }, [])
+
+  useEffect(() => {
+    fetchCategories()
   }, [])
 
   const postProduct = () => {
@@ -38,7 +43,7 @@ const SingleProduct = ({ match }: MatchParams) => {
     <Wrapper>
       {singleProduct._id !== '' && <Redirect to={`/products/${singleProduct._id}`} />}
       <Main />
-      <Aside postProduct={postProduct} updateCurrentProduct={updateCurrentProduct} />
+      <Aside postProduct={postProduct} updateCurrentProduct={updateCurrentProduct} allCategories={categories}/>
     </Wrapper>
   )
 }

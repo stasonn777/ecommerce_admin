@@ -1,22 +1,12 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 import { useActions } from '../../hooks/useActions'
-import { GridBox, Add, Input, Section, TextArea, Select } from '../../styles'
-import { FormWrapper, H3 } from './styles'
+import { GridBox, Add, Input, Section, TextArea, Select, FormWrapper, H3 } from '../../styles'
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import {v4 as uuidv4} from 'uuid'
 
 const Main = () => {
   const { title, description, color, size, options } = useTypedSelector(state => state.singleProduct)
   const { setProductFields, setProductOptions, setOptionsFields } = useActions()
-  // const [customOptions, setCustomOptions] = useState<any[]>([])
-
-  // useEffect(() => {
-  //   const arr = []
-  //   for (const [key, value] of Object.entries(options)) {
-  //     arr.push({ id: uuidv4(), name: [key], value: value})
-  //   }
-  //   setCustomOptions(arr)
-  // }, [options])
 
   const onChangeData = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>) => {
     const data = { [e.target.name]: e.target.value }
